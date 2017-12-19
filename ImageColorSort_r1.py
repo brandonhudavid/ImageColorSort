@@ -6,12 +6,7 @@ import time
 #check runtime
 start_time = time.clock()
 
-# returns most used color in image
-def color_comp():
-	# input file name
-	print("File name?")
-	img = input("")
-
+def color_in_img(img):
 	# file name exists
 	try:
 		# initialize image data
@@ -41,48 +36,51 @@ def color_comp():
 	except FileNotFoundError:
 		return "Error: file <" + filename + "> not found"
 
-	#@jit
-	def color_in_img(img):
+	# counters, corresponding to color names
+	counter = [0, 0, 0, 0, 0, 0, 0, 0]
+	colorname = ["red", "orange", "yellow", "green", "cyan", "blue", \
+					"purple", "pink"]
 
-		# counters, corresponding to color names
-		counter = [0, 0, 0, 0, 0, 0, 0, 0]
-		colorname = ["red", "orange", "yellow", "green", "cyan", "blue", \
-						"purple", "pink"]
+	for pixel in color_dict:
+		# if saturation is 0 OR value is 0, skip pixel
+		if pixel[1] == 0 or pixel[2] == 0:
+			continue
+		hue = pixel[0]
+		weight = color_dict[pixel]
+		if hue >= 346/360 or (hue >= 0 and hue <= 20/360):
+			counter[0] += 1*weight
+		if hue >= 11/360 and hue <= 50/360:
+			counter[1] += 1*weight
+		if hue >= 41/360 and hue <= 80/360:
+			counter[2] += 1*weight
+		if hue >= 61/360 and hue <= 169/360:
+			counter[3] += 1*weight
+		if hue >= 141/360 and hue <= 220/360:
+			counter[4] += 1*weight
+		if hue >= 201/360 and hue <= 280/360:
+			counter[5] += 1*weight
+		if hue >= 241/360 and hue <= 330/360:
+			counter[6] += 1*weight
+		if hue >= 321/360 and hue <= 355/360:
+			counter[7] += 1*weight
 
-		for pixel in color_dict:
-			# if saturation is 0 OR value is 0, skip pixel
-			if pixel[1] == 0 or pixel[2] == 0:
-				continue
-			hue = pixel[0]
-			weight = color_dict[pixel]
-			if hue >= 346/360 or (hue >= 0 and hue <= 20/360):
-				counter[0] += 1*weight
-			if hue >= 11/360 and hue <= 50/360:
-				counter[1] += 1*weight
-			if hue >= 41/360 and hue <= 80/360:
-				counter[2] += 1*weight
-			if hue >= 61/360 and hue <= 169/360:
-				counter[3] += 1*weight
-			if hue >= 141/360 and hue <= 220/360:
-				counter[4] += 1*weight
-			if hue >= 201/360 and hue <= 280/360:
-				counter[5] += 1*weight
-			if hue >= 241/360 and hue <= 330/360:
-				counter[6] += 1*weight
-			if hue >= 321/360 and hue <= 355/360:
-				counter[7] += 1*weight
+	# value of highest counter
+	max_count = max(counter)
+	if max_count == 0:
+		return "Error: <" + img + "> has no color"
+	# index of counter
+	max_index = counter.index(max_count)
+	# color corresponding to highest counter
+	color_most = colorname[max_index]
 
-		# value of highest counter
-		max_count = max(counter)
-		if max_count == 0:
-			return "Error: <" + img + "> has no color"
-		# index of counter
-		max_index = counter.index(max_count)
-		# color corresponding to highest counter
-		color_most = colorname[max_index]
+	return color_most + " is the most used color, composing " \
+		+ str(int(round(max_count/num_pixels*100))) + "% of the image"
 
-		return color_most + " is the most used color, composing " \
-			+ str(int(round(max_count/num_pixels*100))) + "% of the image"
+# returns most used color in image
+def color_comp():
+	# input file name
+	print("File name?")
+	img = input("")
 
 	return color_in_img(img)
 
