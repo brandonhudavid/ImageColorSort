@@ -3,6 +3,7 @@ from numba import jit
 import colorsys
 import time
 import glob
+import operator
 
 #check runtime
 start_time = time.clock()
@@ -101,17 +102,21 @@ def color_sort():
 		raise TypeError\
 		("<" + color + "> not a valid color input")
 
-	color_decimal = {}
+	files = {}
 	# input file name
 	for infile in glob.glob("*.jpg"):
 		img = Image.open(infile, 'r')
 		decimal = color_in_img(img, color)
-		color_decimal[infile] = decimal
-	return color_decimal
+		files[infile] = decimal
+	files_sorted = sorted(files.items(), key=operator.itemgetter(1), \
+	 				reverse=True)
+	print("<file name> | <composition of " + color + ">")
+	print("--------------------------------------")
+	for value in files_sorted:
+		print(value)
 
 
-
-print(color_sort())
+color_sort()
 
 # print runtime
 print("Runtime: ", time.clock() - start_time, "seconds")
