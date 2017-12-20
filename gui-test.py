@@ -1,18 +1,78 @@
 from tkinter import *
+from tkinter import filedialog
 
 # blank window
+
+class GUI:
+	def __init__(self, master, name):
+		self.topFrame = Frame(master, width=1000, height=500)
+		self.topFrame.pack()
+		self.bottomFrame = Frame(master, width=1000, height=500)
+		self.bottomFrame.pack(side=BOTTOM)
+
+		self.header = Label(self.topFrame, text="ImageColorSort")
+		self.header.pack()
+
+		self.button_comp = Button(self.topFrame, text="color comp")
+		self.button_comp.pack(side=BOTTOM)
+
+		self.output = Button(self.bottomFrame, text="Select file...", \
+			command=self.fileselect)
+		self.output.pack()
+
+		self.file = Label(self.bottomFrame)
+		self.file.pack(side=RIGHT)
+
+		mainloop()
+
+	def fileselect(self):
+		self.fileopen = filedialog.askopenfile()
+		self.file["text"] = self.fileopen
+		self.filename = self.file["text"]
+		self.name = ""
+		for elem in self.filename:
+			self.name += elem
+			if self.name[-1:] == "/":
+				self.name = ""
+			if self.name[-3:] == "jpg":
+				break
+		self.file["text"] = self.name
+
+
+	# def changelabel(self):
+	# 	self.output["text"] = "File name?"
+	# 	self.file = Entry(self.bottomFrame, textvariable=name)
+	# 	self.file.pack(side=BOTTOM)
+	# 	self.enter = Button(self.bottomFrame, text="Enter", \
+	# 				command=self.filename)
+	# 	self.enter.pack(side=RIGHT)
+    #
+	# def filename(self):
+	# 	self.filename = name.get()
+	# 	testLabel = Label(self.bottomFrame, text=self.filename)
+	# 	testLabel.pack()
+
 root = Tk()
+name = StringVar()
+myGUI = GUI(root, name)
 
-header = Label(root, text="ImageColorSort created by Brandon David")
-header.pack()
-topFrame = Frame(root)
-topFrame.pack()
-bottomFrame = Frame(root)
-bottomFrame.pack(side=BOTTOM)
 
-button_comp = Button(topFrame, text="color comp")
-button_comp.pack()
-root.mainloop()
+#header = Label(root, text="ImageColorSort created by Brandon David")
+#header.grid(row=0)
+#header.pack()
+
+#topFrame = Frame(root)
+#topFrame.pack()
+#bottomFrame = Frame(root)
+#bottomFrame.pack(side=BOTTOM)
+
+#button_comp = Button(text="color comp")
+#button_comp.grid(row=1)
+
+#file_input = Entry(root)
+#file_input.grid(row=2)
+
+#root.mainloop()
 
 
 
