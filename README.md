@@ -1,7 +1,8 @@
 #### by Brandon David
+###### last updated December 21, 2017
 # ImageColorSort
 ##### A Python script that is intended to sort all image files in a folder by a color value. Utilizes Pillow, a PIL fork.
-###### last updated 12/21/17
+___
 
 **ImageColorSort.py** utilizes and prints to the terminal, but cannot access directories other than the one it is currently in.
 
