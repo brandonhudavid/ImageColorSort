@@ -95,7 +95,11 @@ class GUI:
 		self.bottomFrame = Frame(master)
 		self.bottomFrame.pack()
 		self.header = Label(self.topFrame, text="ImageColorSort", \
-			font="Helvetica 18 bold", pady=10).pack()
+			font="Helvetica 18 bold").pack(pady=(10,0))
+		self.developer = Label(self.topFrame, text="developed by " \
+			+ "Brandon David\n" + \
+			"(https://github.com/brandonhudavid/ImageColorSort)", \
+			font="Helvetica 12").pack(pady=(0,10))
 		self.button_comp = Radiobutton(self.topFrame, text="Find the most " \
 			+ "used color in an image", value=1, variable="mode", \
 			command=lambda: self.modeswitch(0), font="Helvetica 14")
@@ -105,7 +109,7 @@ class GUI:
 			variable="mode", command=lambda: self.modeswitch(1), \
 			font="Helvetica 14")
 		self.button_choose.pack()
-		self.button_sort = Radiobutton(self.topFrame, text="Sort all" \
+		self.button_sort = Radiobutton(self.topFrame, text="Sort all " \
 			+ "images in a directory by color", value=3, \
 			variable="mode", command=lambda: self.modeswitch(2), \
 			font="Helvetica 14")
