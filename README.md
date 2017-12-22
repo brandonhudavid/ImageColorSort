@@ -1,10 +1,8 @@
 #### by Brandon David
-###### last updated December 21, 2017
+###### last updated December 22, 2017
 # ImageColorSort
 ##### A multi-functional image processing Python script that processes pixel hues within jpg images. Utilizes Pillow, a PIL fork.
 ___
-
-**ImageColorSort.py** utilizes and prints to the terminal, but cannot access directories other than the one it is currently in.
 
 **ImageColorSort_gui.py** utilizes tkinter to create a GUI and allows the user to access any directory on the computer.
 
