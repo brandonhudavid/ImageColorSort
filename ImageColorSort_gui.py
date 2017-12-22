@@ -7,7 +7,7 @@ import os, sys
 
 # used by color_comp to return numeric %
 def percentage(decimal):
-	return int(round(decimal*100))
+	return round(decimal*100, 5)
 
 ### HELPER FUNCTION FOR ALL MODES ###
 def color_in_img(img, color=None):
@@ -85,77 +85,98 @@ colorname = ["red", "orange", "yellow", "green", "cyan", "blue", \
 class GUI:
 
 	def __init__(self, master, color):
-		master.geometry("500x700")
+		# window size
+		master.title("ImageColorSort")
+		master.geometry("475x700")
+
+		# pack frames
 		self.topFrame = Frame(master)
 		self.topFrame.pack()
 		self.fileFrame = Frame(master, pady=5)
 		self.fileFrame.pack()
-		self.midFrame = Frame(master, pady=5)
-		self.midFrame.pack()
+		self.midFrame = Frame(master)
+		self.midFrame.pack(pady=(5,0))
+		self.midFrame2 = Frame(master)
+		self.midFrame2.pack(pady=(0,10))
 		self.bottomFrame = Frame(master)
 		self.bottomFrame.pack()
+
+		# bg image
+		self.bg_img = PhotoImage(file="bd_bg.gif")
+		self.bg_canvas = Canvas(master)
+		self.bg_canvas.pack(side=TOP, fill=BOTH, expand=YES)
+		self.bg_canvas.create_image(0, 0, image=self.bg_img, anchor='nw')
+
+		self.outputFrame = Frame(self.bg_canvas)
+		self.outputFrame.pack()
+		# creates and destroys text in mode 3
+		self.helperFrame = Frame(self.outputFrame)
+		self.helperFrame.pack(side=TOP)
+
+		# change default font
+		master.option_add("*Font", "Helvetica 14")
+		# title
 		self.header = Label(self.topFrame, text="ImageColorSort", \
-			font="Helvetica 18 bold").pack(pady=(10,0))
+			font="Helvetica 24 bold").pack(pady=(10,0))
 		self.developer = Label(self.topFrame, text="developed by " \
 			+ "Brandon David\n" + \
 			"(https://github.com/brandonhudavid/ImageColorSort)", \
-			font="Helvetica 12").pack(pady=(0,10))
+			font="Helvetica 13").pack(pady=(0,10))
+		# Buttons for modes
 		self.button_comp = Radiobutton(self.topFrame, text="Find the most " \
 			+ "used color in an image", value=1, variable="mode", \
-			command=lambda: self.modeswitch(0), font="Helvetica 14")
+			command=lambda: self.modeswitch(0))
 		self.button_comp.pack()
 		self.button_choose = Radiobutton(self.topFrame, text="Find the " \
 			+ "% composition of a color in an image", value=2, \
-			variable="mode", command=lambda: self.modeswitch(1), \
-			font="Helvetica 14")
+			variable="mode", command=lambda: self.modeswitch(1))
 		self.button_choose.pack()
 		self.button_sort = Radiobutton(self.topFrame, text="Sort all " \
 			+ "images in a directory by color", value=3, \
-			variable="mode", command=lambda: self.modeswitch(2), \
-			font="Helvetica 14")
+			variable="mode", command=lambda: self.modeswitch(2))
 		self.button_sort.pack()
+		# Buttons to select file
 		self.select = Button(self.fileFrame, text="Select file...", \
-			command=self.fileselect, font="Helvetica 14").pack()
-		self.file = Label(self.fileFrame, text="no file selected", \
-			font="Helvetica 14")
+			command=self.fileselect).pack()
+		self.file = Label(self.fileFrame, text="no file selected")
 		self.file.pack()
 
 		# creating button for each color
 		self.red = Radiobutton(self.midFrame, text="red", \
 			state=NORMAL, value=1, variable="colors", command=lambda: \
-			self.colorselect("red"), font="Helvetica 14")
+			self.colorselect("red"))
 		self.orange = Radiobutton(self.midFrame, text="orange", \
 			state=NORMAL, value=2, variable="colors", command=lambda: \
-			self.colorselect("orange"), font="Helvetica 14")
+			self.colorselect("orange"))
 		self.yellow = Radiobutton(self.midFrame, text="yellow", \
 			state=NORMAL, value=3, variable="colors", command=lambda: \
-			self.colorselect("yellow"), font="Helvetica 14")
+			self.colorselect("yellow"))
 		self.green = Radiobutton(self.midFrame, text="green", \
 			state=NORMAL, value=4, variable="colors", command=lambda: \
-			self.colorselect("green"), font="Helvetica 14")
-		self.cyan = Radiobutton(self.midFrame, text="cyan", \
+			self.colorselect("green"))
+		self.cyan = Radiobutton(self.midFrame2, text="cyan", \
 			state=NORMAL, value=5, variable="colors", command=lambda: \
-			self.colorselect("cyan"), font="Helvetica 14")
-		self.blue = Radiobutton(self.midFrame, text="blue", \
+			self.colorselect("cyan"))
+		self.blue = Radiobutton(self.midFrame2, text="blue", \
 			state=NORMAL, value=6, variable="colors", command=lambda: \
-			self.colorselect("blue"), font="Helvetica 14")
-		self.purple = Radiobutton(self.midFrame, text="purple", \
+			self.colorselect("blue"))
+		self.purple = Radiobutton(self.midFrame2, text="purple", \
 			state=NORMAL, value=7, variable="colors", command=lambda: \
-			self.colorselect("purple"), font="Helvetica 14")
-		self.pink = Radiobutton(self.midFrame, text="pink", \
+			self.colorselect("purple"))
+		self.pink = Radiobutton(self.midFrame2, text="pink", \
 			state=NORMAL, value=8, variable="colors", command=lambda: \
-			self.colorselect("pink"), font="Helvetica 14")
-
+			self.colorselect("pink"))
 		for button in (self.red, self.orange, self.yellow, self.green, \
 			self.cyan, self.blue, self.purple, self.pink):
 			button.pack(side=LEFT)
 
+		# Initialize button
 		self.initialize = Button(self.bottomFrame, text="Initialize", \
-			state=DISABLED, command=lambda: self.mode(self.modefunc), \
-			font="Helvetica 14")
+			state=DISABLED, command=lambda: self.mode(self.modefunc))
 		self.initialize.pack()
-		self.output = Label(self.bottomFrame, font="Helvetica 14")
-		self.output.pack()
+		# Output text
+		self.output = Label(self.outputFrame)
+		self.output.pack(side=BOTTOM)
 
 		# initial selection of buttons
 		self.red.invoke()
@@ -166,14 +187,15 @@ class GUI:
 	def fileselect(self):
 		if self.modefunc == "color_sort":
 			self.filename = filedialog.askdirectory()
-			self.dirpath = self.filename
-			self.file["text"] = self.filename
+			if self.filename != "":
+				self.dirpath = self.filename
+				self.file["text"] = "/"+os.path.split(self.filename)[1]
 		else:
 			self.filename = filedialog.askopenfilename(\
 				filetypes=[("Image File",'.jpg')])
 			if self.filename != "":
 				self.img = Image.open(self.filename, 'r')
-				self.file["text"] = self.filename
+				self.file["text"] = os.path.split(self.filename)[1]
 
 		self.initswitch()
 
@@ -204,11 +226,15 @@ class GUI:
 		self.initswitch()
 
 	def mode(self, func):
+		self.helperFrame.destroy()
+		self.helperFrame = Frame(self.outputFrame)
+		self.helperFrame.pack()
 		if func == "color_comp":
 			self.color_comp(self.img)
 		if func == "color_choose":
 			self.color_choose(self.img, self.color)
 		if func == "color_sort":
+			self.output["text"] = ""
 			self.color_sort(self.dirpath, self.color)
 
 	def color_comp(self, img):
@@ -225,8 +251,8 @@ class GUI:
 		if isinstance(color_value, str):
 			self.output["text"] = color_value
 		else:
-			choose_output = "color selected: " + color + " || " \
-			+ "% composition: " + str(percentage(color_value)) + "%"
+			choose_output = "color selected: " + color + "\n" \
+			+ "percent composition: " + str(percentage(color_value)) + "%"
 			self.output["text"] = choose_output
 
 	def color_sort(self, path, color):
@@ -239,11 +265,24 @@ class GUI:
 				files[infile] = decimal
 		files_sorted = sorted(files.items(), key=operator.itemgetter(1), \
 		 				reverse=True)
-		self.output["text"] = "<file name> | <composition of " + str(color) \
-			+ ">\n------------------------------------\n"
-		for value in files_sorted:
-			self.output["text"] += str(value) + "\n"
-
+		if len(files_sorted) == 0:
+			Label(self.helperFrame, text="Error: no jpg file in selected "\
+				+"directory").pack()
+		else:
+			Label(self.helperFrame, text="file name",\
+				font="Helvetica 14 underline").grid(row=0)
+			Label(self.helperFrame, text="composition of "+color,\
+				font="Helvetica 14 underline").grid(row=0, column=1)
+			i = 1
+			for value in files_sorted:
+				if len(str(value[0])) > 19:
+					Label(self.helperFrame, text=str(value[0])[:15]+str("...")+\
+					str(value[0])[-4:]).grid(row=i, sticky=E)
+				else:
+					Label(self.helperFrame, text=value[0]).grid(row=i)
+				Label(self.helperFrame, text=str(percentage(value[1]))[:8]+"%").\
+					grid(row=i, column=1)
+				i+=1
 
 root = Tk()
 color = StringVar()
