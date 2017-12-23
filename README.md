@@ -1,5 +1,5 @@
 #### by Brandon David
-###### last updated December 22, 2017
+###### last updated December 23, 2017
 # ImageColorSort
 ##### A multi-functional image processing Python script that processes pixel hues within jpg images. Utilizes Pillow, a PIL fork.
 ___
