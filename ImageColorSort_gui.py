@@ -9,6 +9,12 @@ import os, sys
 def percentage(decimal):
 	return round(decimal*100, 5)
 
+def getRGBfromI(RGBint):
+    blue =  RGBint & 255
+    green = (RGBint >> 8) & 255
+    red =   (RGBint >> 16) & 255
+    return red, green, blue
+
 ### HELPER FUNCTION FOR ALL MODES ###
 def color_in_img(img, color=None):
 	# initialize image data
@@ -23,6 +29,9 @@ def color_in_img(img, color=None):
 	pixel_data = list(img.getdata())
 	num_pixels = len(pixel_data)
 	for pixel in pixel_data:
+		# if RGB data stored as integer
+		if isinstance(pixel, int):
+			pixel = getRGBfromI(pixel)
 		# most time occupied when converting to HSV
 		hsv = colorsys.rgb_to_hsv(pixel[0], pixel[1], pixel[2])
 		# add weight values to HSV keys in dictionary
