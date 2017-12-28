@@ -1,7 +1,7 @@
 #### by Brandon David
 ###### last updated December 28, 2017
 # ImageColorSort
-##### A multi-functional image processing Python script that processes pixel hues within jpg images. Utilizes Pillow, a PIL fork, and Tkinter, a GUI toolkit. Compiled into .exe file with PyInstaller.
+##### A multi-functional image processing Python script that processes pixel hues within jpg images. Utilizes Pillow, a PIL fork, and Tkinter, a GUI toolkit. Compiled into MAC OS X executable file with PyInstaller.
 ___
 
 The script uses Pillow to dictionary pixel data from images and Tkinter to establish a user interface that returns human-readable data. The user can access any directory on the computer.
