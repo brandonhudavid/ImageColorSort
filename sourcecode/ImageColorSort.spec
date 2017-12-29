@@ -4,9 +4,9 @@ block_cipher = None
 
 
 a = Analysis(['ImageColorSort.py'],
-             pathex=['/Users/brandonhudavid/Documents/GitHub/ImageColorSort/'],
+             pathex=['/Users/brandonhudavid/Documents/GitHub/ImageColorSort/sourcecode'],
              binaries=[],
-             datas=[("bd_icon.ico", "."), ("bd_bg.gif", ".")],
+             datas=[('bd_icon.ico', '.'), ('bd_bg.gif', '.')],
              hiddenimports=[],
              hookspath=[],
              runtime_hooks=[],
@@ -18,16 +18,16 @@ pyz = PYZ(a.pure, a.zipped_data,
              cipher=block_cipher)
 exe = EXE(pyz,
           a.scripts,
-          exclude_binaries=True,
+          a.binaries,
+          a.zipfiles,
+          a.datas,
           name='ImageColorSort',
           debug=False,
           strip=False,
           upx=True,
-          console=True )
-coll = COLLECT(exe,
-               a.binaries,
-               a.zipfiles,
-               a.datas,
-               strip=False,
-               upx=True,
-               name='ImageColorSort')
+          runtime_tmpdir=None,
+          console=False , icon='bd.icns')
+app = BUNDLE(exe,
+             name='ImageColorSort.app',
+             icon='bd.icns',
+             bundle_identifier=None)
