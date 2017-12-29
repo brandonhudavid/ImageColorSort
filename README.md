@@ -6,7 +6,7 @@ ___
 
 The script uses Pillow, a PIL fork, to dictionary pixel data from images and Tkinter, a GUI toolkit, to establish a user interface that returns human-readable data. The user can access files outside of the local directory.
 
-To use ImageColorSort, download **ImageColorSort.zip.001** and **ImageColorSort.zip.002**. Extracting the two zip files simultaneously will create the **ImageColorSort** app. The sourcecode folder is not required to run the program.
+To use ImageColorSort, download **ImageColorSort.zip.001** and **ImageColorSort.zip.002**. Extracting the two zip files simultaneously will create the **ImageColorSort** app. To run the program, control + left click on the app and click Open. The sourcecode folder is not required to run the program.
 
 There are 3 modes available:
 1. **Find the most used color in an image:**</br>
