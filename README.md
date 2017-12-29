@@ -14,4 +14,4 @@ Select an image from your computer. The program will return the most used color 
 2. **Find the % composition of a color in an image:**</br>
 Select an image from your computer and select a color. The program will return the color selected and that color's percent composition of the image.
 3. **Sort all images in a directory by color:**</br>
-Select a directory from your computer and select a color to sort by. The program will list all files within the directory from highest color composition to lowest.
+Select a directory from your computer and select a color to sort by. The program will list all files within the directory and their respective percent color composition, from highest composition to lowest.
