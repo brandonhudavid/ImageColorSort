@@ -14,22 +14,12 @@ ___
 Program compatible with MAC OS X devices. Analyzes images of jpg, jpeg, and png format. Can access files outside of the local directory. The sourcecode folder is not required to run the program.
 ### Installing
 To use ImageColorSort, download **ImageColorSort.zip.001** and **ImageColorSort.zip.002**. Extracting the two zip files simultaneously will create the **ImageColorSort** app. To run the program, control + left click on the app and click Open.
-___
-## Running ImageColorSort
+## Using ImageColorSort
 1. Select from the three modes.
 2. Select an image file or folder from your computer.
 3. If necessary, select a color to analyze.
-4. Initialize and wait for data output. If using the third mode, analysis may take a while if there are many image files in the folder.
-___
+4. Initialize and wait for data output.
 ## Built With
 * [PyInstaller](http://www.pyinstaller.org/) - Compiles program into MAC OS X application bundle
 * [Pillow](https://pillow.readthedocs.io/en/5.0.0/) - PIL fork, dictionaries pixel data from images
 * [Tkinter](https://docs.python.org/2/library/tkinter.html) - GUI toolkit, establishes user interface and returns human-readable data
-
-
-
-
-
-
-
-Compiled into MAC OS X application bundle with PyInstaller. The script uses Pillow, a PIL fork, to dictionary pixel data from images and Tkinter, a GUI toolkit, to establish a user interface that returns human-readable data.
