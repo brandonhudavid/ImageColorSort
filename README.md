@@ -2,7 +2,7 @@
 ###### code last updated December 28, 2017
 # ImageColorSort
 A multi-functional image processing Python script that analyzes pixel hues within images. There are 3 modes available:</br>
-![alt text](https://github.com/brandonhudavid/ImageColorSort/tree/master/sourcecode/img-readme.png "Logo Title Text 1")
+![ImageColorSort screenshot](https://raw.githubusercontent.com/brandonhudavid/ImageColorSort/master/sourcecode/img-readme.png)
 1. **Find the most used color in an image:**</br>
 Select an image from your computer. The program will return the most used color and that color's percent composition of the image.
 2. **Find the % composition of a color in an image:**</br>
